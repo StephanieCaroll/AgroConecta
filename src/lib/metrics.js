@@ -1,3 +1,5 @@
+// Cálculos dos indicadores (produção, perdas, vendas) e do cruzamento oferta x demanda.
+
 import { sum, toKg, monthKey, lastMonths, monthLabel } from './utils'
 
 export function maxMonth(state) {

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Plus, Pencil, Trash2, X, Download, Search } from 'lucide-react'
-import { useStore } from '../store'
+import { useDados } from '../context/DadosContext'
 import { downloadFile, toCSV } from '../lib/utils'
 
 export function Card({ title, icon: Icon, action, children, className = '', pad = true }) {
@@ -175,7 +175,7 @@ function RecordForm({ title, fields, initial, state, onSave, onClose }) {
  * fields:  [{ key, label, type, options, required, wide, step, hint }]
  */
 export function CrudSection({ collection, singular, columns, fields, defaults = {}, actions = [], filterFn, intro, addLabel }) {
-  const { state, add, update, remove } = useStore()
+  const { state, add, update, remove } = useDados()
   const [q, setQ] = useState('')
   const [editing, setEditing] = useState(null)
 

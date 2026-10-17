@@ -1,11 +1,14 @@
+// Página inicial: resumo dos números, gráfico de produção, ofertas x demandas e avisos.
+
 import { useMemo, useState } from 'react'
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts'
 import {
   Users, Sprout, ShoppingCart, Store, ArrowRight, ArrowUp, AlertTriangle, Megaphone,
   ChevronRight, MapPin, Leaf, CalendarDays, BarChart3, Share2, CloudSun, CheckCircle2,
 } from 'lucide-react'
-import { useStore } from '../store'
+import { useDados } from '../context/DadosContext'
 import { Card, Tabs } from '../components/ui'
+import Foto from '../components/Foto'
 import { indicadores } from '../lib/metrics'
 import { useWeather, describe, riscoChuva } from '../lib/weather'
 import { sum, fmt, fmtDate, emojiOf, todayISO, daysBetween } from '../lib/utils'
@@ -13,18 +16,12 @@ import { sum, fmt, fmtDate, emojiOf, todayISO, daysBetween } from '../lib/utils'
 const curMonth = () => todayISO().slice(0, 7)
 const novos = (list) => list.filter((i) => String(i.createdAt || '').slice(0, 7) === curMonth()).length
 
+// Faixa de boas-vindas com uma foto de fundo (arquivo public/imagens/hero.jpg).
 function Hero({ go }) {
   return (
     <div className="hero">
-      <svg className="art" viewBox="0 0 520 260" preserveAspectRatio="xMaxYMax slice" aria-hidden="true">
-        <circle cx="400" cy="70" r="46" fill="#f4d58d" opacity="0.85" />
-        <path d="M0 150 Q130 90 260 140 T520 110 V260 H0Z" fill="#3f7d4d" opacity="0.8" />
-        <path d="M0 190 Q140 140 280 185 T520 160 V260 H0Z" fill="#2c6a3f" />
-        <path d="M0 230 Q150 195 300 225 T520 210 V260 H0Z" fill="#1d4f30" />
-        {[40, 90, 140, 190, 240, 290, 340, 390, 440].map((x, i) => (
-          <path key={x} d={`M${x} 250 q${i % 2 ? 6 : -6} -30 0 -52`} stroke="#9bd39b" strokeWidth="3" fill="none" />
-        ))}
-      </svg>
+      <Foto src="imagens/hero.jpg" className="hero-foto" />
+      <div className="hero-sombra" />
       <h2>Conectando a agricultura familiar aos mercados</h2>
       <p>Mais oportunidades, melhores preços e um futuro sustentável para quem produz.</p>
       <button className="btn btn-light" onClick={() => go('produtos')}>
@@ -35,7 +32,7 @@ function Hero({ go }) {
 }
 
 function Weather({ go }) {
-  const { state } = useStore()
+  const { state } = useDados()
   const { lat, lon, cidade, limiarChuva } = state.config
   const { loading, data, error } = useWeather(lat, lon)
   const risco = riscoChuva(data, limiarChuva)
@@ -89,7 +86,7 @@ function Weather({ go }) {
 }
 
 export default function Dashboard({ go }) {
-  const { state } = useStore()
+  const { state } = useDados()
   const [tab, setTab] = useState('producao')
   const [n, setN] = useState(6)
   const ind = useMemo(() => indicadores(state, { n }), [state, n])

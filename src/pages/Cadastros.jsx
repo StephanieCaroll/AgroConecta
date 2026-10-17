@@ -1,7 +1,9 @@
+// Telas de cadastro: Produtores, Propriedades e Produtos (catálogo + capacidade produtiva).
+
 import { useState } from 'react'
-import { useStore } from '../store'
+import { useDados } from '../context/DadosContext'
 import { CrudSection, PageHeader, Badge, Tabs, optsFrom } from '../components/ui'
-import { CATEGORIAS, UNIDADES, CERTIFICACOES } from '../seed'
+import { CATEGORIAS, UNIDADES, CERTIFICACOES } from '../data/seed'
 import { nameOf, fmt } from '../lib/utils'
 
 export function Produtores() {

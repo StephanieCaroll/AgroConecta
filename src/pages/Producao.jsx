@@ -1,11 +1,13 @@
+// Registro mensal de produção (prevista x realizada) e planejamento da capacidade.
+
 import { useMemo, useState } from 'react'
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts'
-import { useStore } from '../store'
+import { useDados } from '../context/DadosContext'
 import { Card, CrudSection, PageHeader, Badge, Tabs, optsFrom } from '../components/ui'
 import { nameOf, fmt, pct, monthLabel, toKg, sum, todayISO } from '../lib/utils'
 
 function Planejamento() {
-  const { state } = useStore()
+  const { state } = useDados()
   const mesAtual = todayISO().slice(0, 7)
 
   // próxima previsão (mês futuro ainda sem produção realizada) por produtor + produto

@@ -1,13 +1,15 @@
+// Relatórios e indicadores da produção e da comercialização (com CSV e impressão).
+
 import { useMemo, useState } from 'react'
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts'
 import { Printer, Download, Wheat, TrendingDown, Banknote, Users, CalendarCheck, Share2 } from 'lucide-react'
-import { useStore } from '../store'
+import { useDados } from '../context/DadosContext'
 import { Card, PageHeader, Stat, Badge } from '../components/ui'
 import { indicadores } from '../lib/metrics'
 import { fmt, brl, pct, downloadFile, toCSV, monthLabel } from '../lib/utils'
 
 export default function Relatorios() {
-  const { state } = useStore()
+  const { state } = useDados()
   const [n, setN] = useState(6)
   const [produtorId, setProdutorId] = useState('')
   const ind = useMemo(() => indicadores(state, { n, produtorId }), [state, n, produtorId])

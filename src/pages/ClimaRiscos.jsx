@@ -1,7 +1,9 @@
+// Previsão do tempo (Open-Meteo), alertas de risco e plantios que podem ser afetados.
+
 import { AlertTriangle, CheckCircle2, MapPin } from 'lucide-react'
-import { useStore } from '../store'
+import { useDados } from '../context/DadosContext'
 import { Card, CrudSection, PageHeader, Badge } from '../components/ui'
-import { NIVEIS } from '../seed'
+import { NIVEIS } from '../data/seed'
 import { useWeather, describe, riscoChuva } from '../lib/weather'
 import { fmt, fmtDate, todayISO, nameOf, parseDate } from '../lib/utils'
 
@@ -9,7 +11,7 @@ const TONE = { Baixo: 'info', Médio: 'warn', Alto: 'danger' }
 const diaSemana = (s) => parseDate(s).toLocaleDateString('pt-BR', { weekday: 'short', day: '2-digit', month: '2-digit' })
 
 function Previsao() {
-  const { state } = useStore()
+  const { state } = useDados()
   const { cidade, lat, lon, limiarChuva } = state.config
   const { loading, data, error } = useWeather(lat, lon)
   const risco = riscoChuva(data, limiarChuva)
@@ -94,7 +96,7 @@ function Previsao() {
 }
 
 function Afetados() {
-  const { state } = useStore()
+  const { state } = useDados()
   const hoje = todayISO()
   const ativos = state.alertas.filter((a) => a.fim >= hoje)
 

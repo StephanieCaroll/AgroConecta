@@ -1,3 +1,5 @@
+// Busca da previsão do tempo na Open-Meteo (gratuita, sem chave de API).
+
 import { useEffect, useState } from 'react'
 import { Sun, CloudSun, Cloud, CloudFog, CloudDrizzle, CloudRain, CloudLightning } from 'lucide-react'
 

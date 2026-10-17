@@ -1,4 +1,6 @@
-import { useStore } from '../store'
+// Calendário de plantio e colheita, com linha do tempo (Gantt) e lista de plantios.
+
+import { useDados } from '../context/DadosContext'
 import { Card, CrudSection, PageHeader, Badge, optsFrom } from '../components/ui'
 import { nameOf, parseDate, fmtDate, daysBetween, todayISO, MESES } from '../lib/utils'
 
@@ -66,7 +68,7 @@ function Timeline({ rows, state }) {
 }
 
 export default function Calendario() {
-  const { state } = useStore()
+  const { state } = useDados()
   const hoje = todayISO()
   const proximas = state.calendario
     .filter((c) => c.status !== 'Colhido' && c.colheita >= hoje)

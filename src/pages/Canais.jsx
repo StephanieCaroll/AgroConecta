@@ -1,13 +1,15 @@
+// Canais de comercialização, vendas registradas e sugestão de canais para cada produto.
+
 import { useMemo, useState } from 'react'
-import { useStore } from '../store'
+import { useDados } from '../context/DadosContext'
 import { Card, CrudSection, PageHeader, Badge, Tabs, Empty, optsFrom } from '../components/ui'
-import { TIPOS_COMPRADOR } from '../seed'
+import { TIPOS_COMPRADOR } from '../data/seed'
 import { nameOf, fmt, brl, fmtDate, todayISO, sum, emojiOf } from '../lib/utils'
 
 const escalaDe = (qtd) => (qtd < 2000 ? 'Pequena' : qtd < 6000 ? 'Média' : 'Grande')
 
 function Identificar() {
-  const { state } = useStore()
+  const { state } = useDados()
   const [produtoId, setProdutoId] = useState(state.produtos[0]?.id || '')
   const produto = state.produtos.find((p) => p.id === produtoId)
 

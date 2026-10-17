@@ -1,3 +1,5 @@
+// Funções de apoio: formatação de números, moeda e datas, conversão para kg, download de arquivos.
+
 export const MESES = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']
 
 export const fmt = (n, d = 0) =>

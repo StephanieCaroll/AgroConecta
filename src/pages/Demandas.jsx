@@ -1,14 +1,16 @@
+// Demandas dos compradores e cruzamento entre oferta e demanda.
+
 import { useMemo, useState } from 'react'
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts'
-import { useStore } from '../store'
+import { useDados } from '../context/DadosContext'
 import { Card, CrudSection, PageHeader, Badge, Tabs, Stat, optsFrom } from '../components/ui'
 import { cruzar, STATUS_TONE } from '../lib/metrics'
-import { TIPOS_COMPRADOR } from '../seed'
+import { TIPOS_COMPRADOR } from '../data/seed'
 import { nameOf, fmt, brl, fmtDate, todayISO, emojiOf } from '../lib/utils'
 import { TrendingUp, TrendingDown, Lightbulb, Scale } from 'lucide-react'
 
 function Cruzamento() {
-  const { state } = useStore()
+  const { state } = useDados()
   const rows = useMemo(() => cruzar(state), [state])
   const conta = (s) => rows.filter((r) => r.status === s).length
 

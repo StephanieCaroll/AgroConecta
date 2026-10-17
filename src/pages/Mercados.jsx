@@ -1,6 +1,8 @@
+// Ofertas, preços de referência, chamadas públicas e informações de mercado.
+
 import { useMemo, useState } from 'react'
 import { Megaphone, TrendingUp, TrendingDown, Minus } from 'lucide-react'
-import { useStore } from '../store'
+import { useDados } from '../context/DadosContext'
 import { Card, CrudSection, PageHeader, Badge, Tabs, optsFrom } from '../components/ui'
 import { nameOf, fmt, brl, fmtDate, todayISO, sum, emojiOf } from '../lib/utils'
 
@@ -56,7 +58,7 @@ function Ofertas() {
 }
 
 function Precos() {
-  const { state } = useStore()
+  const { state } = useDados()
 
   const resumo = useMemo(
     () =>

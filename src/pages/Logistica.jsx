@@ -1,12 +1,14 @@
+// Entregas: datas, veículos, destinos e custo de frete.
+
 import { Truck, CalendarClock, PackageCheck, Wallet } from 'lucide-react'
-import { useStore } from '../store'
+import { useDados } from '../context/DadosContext'
 import { CrudSection, PageHeader, Badge, Stat, optsFrom } from '../components/ui'
 import { nameOf, fmt, brl, fmtDate, sum } from '../lib/utils'
 
 const TONE = { Agendada: 'warn', 'Em trânsito': 'info', Entregue: 'ok', Cancelada: 'neutral' }
 
 export default function Logistica() {
-  const { state } = useStore()
+  const { state } = useDados()
   const conta = (s) => state.entregas.filter((e) => e.status === s).length
   const custo = sum(state.entregas.filter((e) => e.status !== 'Cancelada'), (e) => e.custo)
 
